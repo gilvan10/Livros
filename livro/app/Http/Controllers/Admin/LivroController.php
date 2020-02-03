@@ -14,7 +14,12 @@ class LivroController extends Controller
      */
     public function index()
     {
-        return view('admin.livros.index');
+        $listaLivros = json_encode([
+            ["id" => "1", "ds_livro" => "Java", "id_usuario" => "1"],
+                ["id" => "2", "ds_livro" => "Php", "id_usuario" => "1"]
+    ]);
+
+        return view('admin.livros.index',compact('listaLivros'));
     }
 
     /**
@@ -35,7 +40,24 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $data = $request->all();
+
+        //validação
+        $validacao = \Validator::make($data,[
+            "ds_livro" => "required",
+            "id_usuario" => "required",
+
+        ]);
+
+        if($validacao->fails()){
+            //back() retorna para a pagina anterior, withErros mostras erros
+            //withInput coloca os dados que foram digitados no formulario;
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
+
+        Livro::create($data);
+        return redirect()->back();
     }
 
     /**

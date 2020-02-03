@@ -1,9 +1,12 @@
 <template>
     <div>
-        <a v-if="criar" v-bind:href="criar">Criar</a>
+
+        <!--Este link não tem ação-->
+        <a v-if="criar && !modal" v-bind:href="criar">Criar</a>
+        <modal-link v-if="criar && modal" tipo="button" nome="adicionar" titulo="Criar" css=""></modal-link>
 
         <table class="table table-striped table-hover">
-            <thead >
+            <thead>
             <tr>
                 <th v-for="titulo in titulos">{{titulo}}</th>
 
@@ -20,7 +23,9 @@
                         <input type="hidden" name="_token" v-bind:value="token">
 
                         <a v-if="detalhe" v-bind:href="detalhe">Detalhe |</a>
-                        <a v-if="editar" v-bind:href="editar">Editar |</a>
+                        <a v-if="editar && !modal" v-bind:href="editar">Editar |</a>
+                        <modal-link v-if="editar && modal" tipo="link" nome="editar" titulo="Editar |" css=""></modal-link>
+
                         <a href="#" v-on:click="executaForm(index)">Deletar</a>
 
                     </form>
@@ -40,7 +45,7 @@
 </template>
 <script>
     export default {
-        props:['titulos','itens','criar','detalhe','editar','deletar','token'],
+        props:['titulos','itens','criar','detalhe','editar','deletar','token','modal'],
         methods:{
             executaForm: function(index){
                 document.getElementById(index).submit();
