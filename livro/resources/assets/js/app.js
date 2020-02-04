@@ -11,6 +11,18 @@ window.Vue = require('vue');
 import Vuex from 'Vuex';
 Vue.use(Vuex);
 
+const store = new Vuex.Store({
+    state:{
+        item:{}
+    },
+    mutations:{
+        setItem(state,obj){
+            state.item = obj;
+        }
+    }
+});
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,18 +30,9 @@ Vue.use(Vuex);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//Vuex
 
-const store = new Vuex.store({
-    state:{
-        itens:{teste:"opa Funcionou"}
-    },
-    mutations:{
-        setItens(state,obj){
-            state.itens = obj;
-        }
-    }
-});
+
+
 
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
@@ -43,5 +46,10 @@ Vue.component('formulario', require('./components/Formulario.vue'));
 
 const app = new Vue({
     el: '#app',
-    store
+    store,
+    //tipo de ciclo de vida
+    mounted: function(){
+        console.log("ok");
+        document.getElementById("app").style.display = "block";
+    }
 });

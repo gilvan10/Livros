@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Livro;
 
 class LivroController extends Controller
 {
@@ -14,10 +15,13 @@ class LivroController extends Controller
      */
     public function index()
     {
+        /*Quando era carregado em memória
         $listaLivros = json_encode([
             ["id" => "1", "ds_livro" => "Java", "id_usuario" => "1"],
-                ["id" => "2", "ds_livro" => "Php", "id_usuario" => "1"]
-    ]);
+            ["id" => "2", "ds_livro" => "Php", "id_usuario" => "1"]
+        ]);*/
+        //Vindo do banco de dados
+        $listaLivros = json_encode(Livro::select('id','ds_livro','id_usuario')->get());
 
         return view('admin.livros.index',compact('listaLivros'));
     }
@@ -40,6 +44,7 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
+
         //dd($request->all());
         $data = $request->all();
 
@@ -68,7 +73,7 @@ class LivroController extends Controller
      */
     public function show($id)
     {
-        //
+        return Livro::find($id);
     }
 
     /**
@@ -102,6 +107,7 @@ class LivroController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Livro::find($id)->delete();
+        return redirect()->back();
     }
 }
