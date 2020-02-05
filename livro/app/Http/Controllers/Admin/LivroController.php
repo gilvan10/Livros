@@ -96,7 +96,20 @@ class LivroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $validacao = \Validator::make($data,[
+            "ds_livro" => "required",
+            "id_usuario" => "required",
+
+        ]);
+
+        if($validacao->fails()){
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
+
+        Livro::find($id)->update($data);
+        return redirect()->back();
     }
 
     /**

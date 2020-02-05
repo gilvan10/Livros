@@ -18,7 +18,7 @@
                 <td v-for="i in item">{{i}}</td>
 
                 <td v-if="detalhe || editar || deletar">
-                    <form v-bind:id="index" v-if="deletar && token" v-bind:action="deletar" method="post">
+                    <form v-bind:id="index" v-if="deletar && token" v-bind:action="deletar + item.id" method="post">
                         <input type="hidden" name="_method" value="Delete">
                         <input type="hidden" name="_token" v-bind:value="token">
 
@@ -26,7 +26,7 @@
                         <modal-link v-if="detalhe && modal" v-bind:item="item" v-bind:url="detalhe" tipo="link" nome="detalhe" titulo="Detalhe |" css=""></modal-link>
 
                         <a v-if="editar && !modal" v-bind:href="editar">Editar |</a>
-                        <modal-link v-if="editar && modal" v-bind:item="item" tipo="link" nome="editar" titulo="Editar |" css=""></modal-link>
+                        <modal-link v-if="editar && modal" v-bind:item="item" v-bind:url="editar" tipo="link" nome="editar" titulo="Editar |" css=""></modal-link>
 
                         <a href="#" v-on:click="executaForm(index)">Deletar</a>
 

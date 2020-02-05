@@ -46376,7 +46376,7 @@ var render = function() {
                             {
                               attrs: {
                                 id: index,
-                                action: _vm.deletar,
+                                action: _vm.deletar + item.id,
                                 method: "post"
                               }
                             },
@@ -46423,6 +46423,7 @@ var render = function() {
                                 ? _c("modal-link", {
                                     attrs: {
                                       item: item,
+                                      url: _vm.editar,
                                       tipo: "link",
                                       nome: "editar",
                                       titulo: "Editar |",

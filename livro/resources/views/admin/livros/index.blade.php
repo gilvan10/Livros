@@ -18,7 +18,7 @@
             <tabela-lista
                     v-bind:titulos="['id','titulo','autor']"
                     v-bind:itens="{{$listaLivros}}"
-                    criar="#criar" detalhe="/admin/livros/" editar="#editar" deletar="#deletar" token="12345678"
+                    criar="#criar" detalhe="/admin/livros/" editar="/admin/livros/" deletar="/admin/livros/" token="{{ csrf_token() }}"
                     modal="sim"
 
             ></tabela-lista>
@@ -46,7 +46,7 @@
     </modal>
     <modal nome="editar">
         <painel titulo="Editar">
-            <formulario id="formEditar" css="" action="#" method="put" enctype="multipart/form-data" token="12345" >
+            <formulario id="formEditar" v-bind:action="'/admin/livros/' + ($store.state.item.id)" method="put" enctype="" token="{{ csrf_token() }}" >
 
                 <div class="form-group">
                     <label for="ds_livro">Ds_Livro</label><br>
